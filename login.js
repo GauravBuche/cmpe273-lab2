@@ -45,7 +45,24 @@ Login.prototype.logout = function(sessionId) {
    /*
 	* TODO: Remove the given sessionId from the sessionMap
 	*/
+	
+    delete(this.sessionMap[sessionId]);
+
 };
+
+Login.prototype.refreshLogin = function(old_sessionId) {
+	console.log('refreshLogin::' + old_sessionId	);
+    
+    var new_sessionId = new Date().getTime();
+    this.sessionMap[new_sessionId] = this.sessionMap[old_sessionId];
+
+
+    delete(this.sessionMap[old_sessionId]);
+    console.log('Session Id refreshed!');
+
+    return new_sessionId;
+};
+
 
 // Export the Login class
 module.exports = new Login();
